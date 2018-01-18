@@ -5,9 +5,9 @@ import asyncio
 from aiohttp import web
 
 
-async def loading_gif(request):
+async def cutty_cats(request):
     await asyncio.sleep(5)
-    return web.HTTPFound('https://i.giphy.com/media/y1ZBcOGOOtlpC/200.gif')
+    return web.HTTPFound('https://static.pexels.com/photos/45170/kittens-cat-cat-puppy-rush-45170.jpeg')
 
 
 async def longcat(request):
@@ -16,6 +16,6 @@ async def longcat(request):
 
 if __name__ == '__main__':
     app = web.Application()
-    app.router.add_get('/loading.gif', loading_gif)
+    app.router.add_get('/cutty_cats.jpg', cutty_cats)
     app.router.add_get('/longcat.jpg', longcat)
     web.run_app(app, port=int(os.getenv('PORT', 5000)))
