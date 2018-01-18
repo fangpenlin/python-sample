@@ -13,7 +13,7 @@ def hello():
 @app.route('/loading.gif')
 def loading_gif():
     time.sleep(10)
-    return redirect('https://media.giphy.com/media/y1ZBcOGOOtlpC/200.gif')
+    return redirect('https://i.giphy.com/media/y1ZBcOGOOtlpC/200.gif')
 
 
 @app.route('/longcat.jpg')
