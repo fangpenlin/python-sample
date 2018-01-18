@@ -1,27 +1,21 @@
 import os
-import time
-from flask import Flask
-from flask import redirect
 
-app = Flask(__name__)
+import asyncio
 
-@app.route('/')
-def hello():
-    return 'Hello World!'
+from aiohttp import web
 
 
-@app.route('/loading.gif')
-def loading_gif():
-    time.sleep(10)
-    return redirect('https://i.giphy.com/media/y1ZBcOGOOtlpC/200.gif')
+async def loading_gif(request):
+    await asyncio.sleep(5)
+    return web.HTTPFound('https://i.giphy.com/media/y1ZBcOGOOtlpC/200.gif')
 
 
-@app.route('/longcat.jpg')
-def longcat():
-    return redirect('http://i0.kym-cdn.com/photos/images/facebook/000/002/110/longcat.jpg')
+async def longcat(request):
+    return web.HTTPFound('http://i0.kym-cdn.com/photos/images/facebook/000/002/110/longcat.jpg')
 
 
 if __name__ == '__main__':
-    # Bind to PORT if defined, otherwise default to 5000.
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app = web.Application()
+    app.router.add_get('/loading.gif', loading_gif)
+    app.router.add_get('/longcat.jpg', longcat)
+    web.run_app(app, port=os.getenv('PORT', 5000))
